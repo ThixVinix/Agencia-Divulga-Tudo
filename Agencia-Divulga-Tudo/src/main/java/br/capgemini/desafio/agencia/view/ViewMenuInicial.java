@@ -30,6 +30,7 @@ public class ViewMenuInicial {
 //	private TelaPesquisaURL frameTelaPesquisaURL;
 //	private TelaPesquisaArquivo frameTelaPesquisaArquivo;
 	private ViewCriarAnuncio frameCriarAnuncio;
+	private ViewVisualizarAnuncios frameVisualizarAnuncios;
 	private ImageIcon imagem = new ImageIcon(getClass().getResource(Constante.IMAGEM_MENU_INICIAL_3));
 	private JLabel imagemMenuInicial = new JLabel(imagem);
 
@@ -54,9 +55,9 @@ public class ViewMenuInicial {
 
 		JMenuBar menuBar = new JMenuBar();
 		frameMenuInicial.setJMenuBar(menuBar);
-		JMenuItem menuItemSearchURL = new JMenuItem(Constante.MENU_CRIAR_ANUNCIO);
-		menuItemSearchURL.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
-		menuItemSearchURL.addActionListener(new ActionListener() {
+		JMenuItem menuCriarAnuncio = new JMenuItem(Constante.MENU_CRIAR_ANUNCIO);
+		menuCriarAnuncio.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
+		menuCriarAnuncio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
@@ -64,28 +65,25 @@ public class ViewMenuInicial {
 							frameCriarAnuncio = new ViewCriarAnuncio(frameMenuInicial);
 							frameCriarAnuncio.setVisible(true);
 							frameMenuInicial.setVisible(false);
-//							frameTelaPesquisaURL = new TelaPesquisaURL(frameTelaInicial);
-//							frameTelaPesquisaURL.setVisible(true);
-//							frameTelaInicial.setVisible(false);
 						} catch (Exception e) {
-							e.printStackTrace();
+							LOGGER.catching(e);
 						}
 					}
 				});
 			}
 		});
-		menuBar.add(menuItemSearchURL);
+		menuBar.add(menuCriarAnuncio);
 
-		JMenuItem menuItemSearchUniqueFile = new JMenuItem(Constante.MENU_TITLE_VISUALIZAR);
-		menuItemSearchUniqueFile.addActionListener(new ActionListener() {
+		JMenuItem menuVisualizarAnuncios = new JMenuItem(Constante.MENU_TITLE_VISUALIZAR);
+		menuVisualizarAnuncios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				frameTelaPesquisaArquivo = new TelaPesquisaArquivo(frameTelaInicial);
-//				frameTelaPesquisaArquivo.setVisible(true);
-//				frameTelaInicial.setVisible(false);
+				frameVisualizarAnuncios = new ViewVisualizarAnuncios(frameMenuInicial);
+				frameVisualizarAnuncios.setVisible(true);
+				frameMenuInicial.setVisible(false);
 			}
 		});
-		menuItemSearchUniqueFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK));
-		menuBar.add(menuItemSearchUniqueFile);
+		menuVisualizarAnuncios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK));
+		menuBar.add(menuVisualizarAnuncios);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0 };
 		gridBagLayout.rowHeights = new int[] { 0 };

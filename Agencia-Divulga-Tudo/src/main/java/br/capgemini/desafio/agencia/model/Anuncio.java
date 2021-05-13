@@ -1,20 +1,29 @@
 package br.capgemini.desafio.agencia.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Anuncio {
 
-	String nome;
+	private Long id;
 
-	String cliente;
+	private String nome;
 
-	LocalDate dataInicio;
+	private String cliente;
 
-	LocalDate dataTermino;
+	private Date dataInicio;
 
-	Double investimentoPorDia;
-	
-	
+	private Date dataTermino;
+
+	private Double investimentoPorDia;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -31,19 +40,19 @@ public class Anuncio {
 		this.cliente = cliente;
 	}
 
-	public LocalDate getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
+	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public LocalDate getDataTermino() {
+	public Date getDataTermino() {
 		return dataTermino;
 	}
 
-	public void setDataTermino(LocalDate dataTermino) {
+	public void setDataTermino(Date dataTermino) {
 		this.dataTermino = dataTermino;
 	}
 
@@ -54,5 +63,5 @@ public class Anuncio {
 	public void setInvestimentoPorDia(Double investimentoPorDia) {
 		this.investimentoPorDia = investimentoPorDia;
 	}
-	
+
 }

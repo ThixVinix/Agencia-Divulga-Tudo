@@ -6,10 +6,16 @@ import org.apache.logging.log4j.Logger;
 import br.capgemini.desafio.agencia.util.LayoutPersonalizado;
 import br.capgemini.desafio.agencia.view.ViewMenuInicial;
 
+/**
+ * Programming Challenge - CAPGEMINI ACADEMY - Part 2
+ * 
+ * @author THIAGO VINICIUS DE ALMEIDA SOUZA
+ * @since 11/05/2021
+ */
 public class Main {
 
 	private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -23,5 +29,5 @@ public class Main {
 			LOGGER.catching(e);
 		}
 	}
-	
+
 }

@@ -12,17 +12,21 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import br.capgemini.desafio.agencia.actions.ListenerCriarAnuncio;
-import br.capgemini.desafio.agencia.actions.ListenerVoltarCriarAnuncio;
+import br.capgemini.desafio.agencia.actions.ListenerEditarAnuncio;
+import br.capgemini.desafio.agencia.actions.ListenerVoltarEditarAnuncio;
 import br.capgemini.desafio.agencia.controller.AnuncioController;
+import br.capgemini.desafio.agencia.model.Anuncio;
+import br.capgemini.desafio.agencia.util.Util;
 
-public class ViewCriarAnuncio extends JFrame {
+public class ViewEditarAnuncio extends JFrame {
 
 	private static final long serialVersionUID = 4642741144261760853L;
 	private AnuncioController anuncioController;
 
 	public JPanel contentPane;
 	public JFrame frameAnterior;
+	public JFrame frameInicial;
+	public Long idEdit;
 	public JTextField nomeAnuncio;
 	public JTextField nomeCliente;
 	public JTextField investimentoDia;
@@ -31,13 +35,19 @@ public class ViewCriarAnuncio extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
-	public ViewCriarAnuncio(JFrame frameAnterior) throws ParseException {
+	public ViewEditarAnuncio(JFrame frameAnterior, JFrame frameInicial, Long idEdit) throws ParseException {
 		this.frameAnterior = frameAnterior;
+		this.frameInicial = frameInicial;
+		this.idEdit = idEdit;
+
 		setAnuncioController(new AnuncioController());
 
-		setTitle("Criar An\u00FAncio");
+		Anuncio anuncio = getAnuncioController().obterAnuncio(idEdit);
+
+		setTitle("Editar An\u00FAncio");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 343);
 		setResizable(false);
@@ -53,6 +63,7 @@ public class ViewCriarAnuncio extends JFrame {
 
 		nomeAnuncio = new JTextField();
 		nomeAnuncio.setBounds(10, 36, 359, 26);
+		nomeAnuncio.setText(anuncio.getNome());
 		contentPane.add(nomeAnuncio);
 		nomeAnuncio.setColumns(10);
 
@@ -62,6 +73,7 @@ public class ViewCriarAnuncio extends JFrame {
 
 		nomeCliente = new JTextField();
 		nomeCliente.setBounds(10, 98, 359, 26);
+		nomeCliente.setText(anuncio.getCliente());
 		contentPane.add(nomeCliente);
 		nomeCliente.setColumns(10);
 
@@ -72,6 +84,7 @@ public class ViewCriarAnuncio extends JFrame {
 		formattedDataInicio = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		formattedDataInicio.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		formattedDataInicio.setBounds(10, 160, 160, 26);
+		formattedDataInicio.setText(Util.getConverteDateToString(anuncio.getDataInicio()));
 		contentPane.add(formattedDataInicio);
 
 		JLabel lblDataTermino = new JLabel("Data de T\u00E9rmino");
@@ -81,6 +94,7 @@ public class ViewCriarAnuncio extends JFrame {
 		formattedDataTermino = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		formattedDataTermino.setFocusLostBehavior(JFormattedTextField.COMMIT);
 		formattedDataTermino.setBounds(209, 160, 160, 26);
+		formattedDataTermino.setText(Util.getConverteDateToString(anuncio.getDataTermino()));
 		contentPane.add(formattedDataTermino);
 
 		JLabel lblInvestimentoDia = new JLabel("Investimento por Dia");
@@ -90,16 +104,17 @@ public class ViewCriarAnuncio extends JFrame {
 		investimentoDia = new JTextField();
 		investimentoDia.setBounds(10, 222, 359, 26);
 		investimentoDia.setColumns(10);
+		investimentoDia.setText(anuncio.getInvestimentoPorDia().toString());
 		contentPane.add(investimentoDia);
 
-		JButton btnCriarAnuncio = new JButton("Criar");
-		btnCriarAnuncio.setBounds(209, 274, 89, 23);
-		btnCriarAnuncio.addActionListener(new ListenerCriarAnuncio(this));
-		contentPane.add(btnCriarAnuncio);
+		JButton btnEditarAnuncio = new JButton("Editar");
+		btnEditarAnuncio.setBounds(209, 274, 89, 23);
+		btnEditarAnuncio.addActionListener(new ListenerEditarAnuncio(this));
+		contentPane.add(btnEditarAnuncio);
 
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(81, 274, 89, 23);
-		btnVoltar.addActionListener(new ListenerVoltarCriarAnuncio(this));
+		btnVoltar.addActionListener(new ListenerVoltarEditarAnuncio(this));
 		contentPane.add(btnVoltar);
 
 	}

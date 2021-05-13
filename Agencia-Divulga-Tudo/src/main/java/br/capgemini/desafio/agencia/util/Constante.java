@@ -12,5 +12,9 @@ public class Constante {
 	public static final String MENU_CRIAR_ANUNCIO = "Criar Anúncio";
 	public static final String MENU_TITLE_CALCULADORA = "Calculadora de alcance de anúncio online";
 	public static final String MENU_TITLE_VISUALIZAR = "Visualizar relatórios de anúncio";
-
+	public static final String SUCESSO_CRIAR_ANUNCIO = "Anúncio criado com sucesso!";
+	public static final String SELECIONAR_LINHA_DELETAR = "Selecione um registro para ser deletado.";
+	public static final String ERRO_DELETAR_ANUNCIO = "Não foi possível deletar o anúncio";
+	public static final String SUCESSO_DELETAR_ANUNCIO = "O anúncio foi deletado com sucesso!";
+	public static final String SELECIONAR_LINHA_EDITAR = "Selecione um registro para ser editado.";
 }

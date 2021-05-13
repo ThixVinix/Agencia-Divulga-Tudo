@@ -9,15 +9,16 @@ import org.apache.logging.log4j.Logger;
 import br.capgemini.desafio.agencia.dto.AnuncioDTO;
 import br.capgemini.desafio.agencia.enums.ValidacaoAnuncioEnum;
 import br.capgemini.desafio.agencia.util.ViewUtil;
-import br.capgemini.desafio.agencia.view.ViewCriarAnuncio;
+import br.capgemini.desafio.agencia.view.ViewEditarAnuncio;
+import br.capgemini.desafio.agencia.view.ViewVisualizarAnuncios;
 
-public class ListenerCriarAnuncio implements ActionListener {
+public class ListenerEditarAnuncio implements ActionListener {
 
-	private static final Logger LOGGER = LogManager.getLogger(ListenerCriarAnuncio.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(ListenerEditarAnuncio.class.getName());
 
-	private ViewCriarAnuncio tela;
+	private ViewEditarAnuncio tela;
 
-	public ListenerCriarAnuncio(ViewCriarAnuncio tela) {
+	public ListenerEditarAnuncio(ViewEditarAnuncio tela) {
 		this.tela = tela;
 	}
 
@@ -25,6 +26,7 @@ public class ListenerCriarAnuncio implements ActionListener {
 
 		AnuncioDTO anuncioDto = new AnuncioDTO();
 
+		anuncioDto.setId(tela.idEdit);
 		anuncioDto.setNome(tela.nomeAnuncio.getText());
 		anuncioDto.setCliente(tela.nomeCliente.getText());
 		anuncioDto.setDataInicio(tela.formattedDataInicio.getText());
@@ -33,25 +35,26 @@ public class ListenerCriarAnuncio implements ActionListener {
 
 		boolean isValid = validarAnuncio(anuncioDto);
 
-		if (!isValid) 
+		if (!isValid)
 			return;
-		
-		tela.getAnuncioController().preencherAnuncio(anuncioDto);
-		
-		tela.getAnuncioController().criarAnuncio();
-		
-		ViewUtil.exibirMensagemInformativa(ValidacaoAnuncioEnum.SUCESSO_CRIACAO.getDescricao());
-		
+
+
+		tela.getAnuncioController().editarAnuncio(anuncioDto);
+
+		ViewUtil.exibirMensagemInformativa(ValidacaoAnuncioEnum.SUCESSO_EDICAO.getDescricao());
+
 		tela.setVisible(false);
 		tela.contentPane.resetKeyboardActions();
+		tela.frameAnterior = new ViewVisualizarAnuncios(tela.frameInicial);
 		tela.frameAnterior.setVisible(true);
+		tela.dispose();
 	}
 
 	private boolean validarAnuncio(AnuncioDTO anuncioDto) {
 
 		ValidacaoAnuncioEnum validacaoAnuncio;
 
-		validacaoAnuncio = tela.getAnuncioController().validarAnuncio(anuncioDto, true);
+		validacaoAnuncio = tela.getAnuncioController().validarAnuncio(anuncioDto, false);
 
 		if (!(validacaoAnuncio == ValidacaoAnuncioEnum.SUCESSO_CRIACAO
 				|| validacaoAnuncio == ValidacaoAnuncioEnum.SUCESSO_EDICAO)) {

@@ -3,13 +3,13 @@ package br.capgemini.desafio.agencia.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import br.capgemini.desafio.agencia.view.ViewCriarAnuncio;
+import br.capgemini.desafio.agencia.view.ViewEditarAnuncio;
 
-public class ListenerVoltar implements ActionListener {
+public class ListenerVoltarEditarAnuncio implements ActionListener {
 
-	private ViewCriarAnuncio tela;
+	private ViewEditarAnuncio tela;
 
-	public ListenerVoltar(ViewCriarAnuncio tela) {
+	public ListenerVoltarEditarAnuncio(ViewEditarAnuncio tela) {
 		this.tela = tela;
 	}
 
@@ -17,6 +17,7 @@ public class ListenerVoltar implements ActionListener {
 		tela.setVisible(false);
 		tela.contentPane.resetKeyboardActions();
 		tela.frameAnterior.setVisible(true);
+		tela.dispose();
 	}
 
 }
