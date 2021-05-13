@@ -1,22 +1,20 @@
 package br.capgemini.desafio.agencia.calculator;
 
-import java.text.NumberFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import br.capgemini.desafio.agencia.model.ResultadoProjecao;
 
 public class Calculadora {
-	
+
 	private Double visualizacoes;
 	private Double totalCliques;
 	private Double compartilhamentos;
 	private Double visualizacaoDeCompartilhamento;
 	private Long totalCompSeq;
 	private Double totalVisualizacao;
-	
+
 	private ResultadoProjecao result;
 
 	public Calculadora() {
@@ -33,14 +31,14 @@ public class Calculadora {
 
 		long diffMilliseconds = Math.abs(dataTermino.getTime() - dataInicio.getTime());
 		long dias = TimeUnit.DAYS.convert(diffMilliseconds, TimeUnit.MILLISECONDS);
-		
+
 		Double totalValorInvestido;
 		if (dias == 0l) {
-			 totalValorInvestido = valorInvestido * 1;
+			totalValorInvestido = valorInvestido * 1;
 		} else {
 			totalValorInvestido = valorInvestido * dias;
 		}
-		
+
 		visualizacoes = calcularVisualizacoes(totalValorInvestido);
 		totalCliques = calcularCliques(visualizacoes);
 		compartilhamentos = calcularCompartilhamentos(totalCliques);
@@ -48,22 +46,11 @@ public class Calculadora {
 		totalCompSeq = calcularVisualizacoesCompartilhadasSequenciais(visualizacaoDeCompartilhamento);
 
 		totalVisualizacao = visualizacoes + visualizacaoDeCompartilhamento + totalCompSeq;
-		
+
 		getResult().setQtdMaxCliques(totalCliques.longValue());
 		getResult().setQtdMaxCompartilhamentos(visualizacaoDeCompartilhamento.longValue() + totalCompSeq.longValue());
 		getResult().setTotalValorInvestido(totalValorInvestido);
 		getResult().setQtdMaxVisualizacao(totalVisualizacao.longValue());
-		
-		Locale localeBR = new Locale("pt", "BR");
-		NumberFormat formatoDinheiro = NumberFormat.getCurrencyInstance(localeBR);
-		NumberFormat formatoNumerico = NumberFormat.getNumberInstance(localeBR);
-
-		String s1 = formatoDinheiro.format(valorInvestido);
-		String s2 = formatoNumerico.format(totalCliques);
-		String s3 = formatoNumerico.format(visualizacoes);
-		String s4 = formatoNumerico.format(compartilhamentos);
-		String s5 = formatoNumerico.format(visualizacaoDeCompartilhamento + totalCompSeq);
-		String s6 = formatoNumerico.format(totalVisualizacao);
 
 		return getResult();
 	}
@@ -122,7 +109,7 @@ public class Calculadora {
 		sequenciaCompartilhada = (rand.nextInt(4) + 1);
 		return sequenciaCompartilhada;
 	}
-	
+
 	public void resetarAtributos() {
 		this.visualizacoes = 0d;
 		this.totalCliques = 0d;
@@ -132,7 +119,7 @@ public class Calculadora {
 		this.totalVisualizacao = 0d;
 		setResult(new ResultadoProjecao());
 	}
-	
+
 	public Double getVisualizacoes() {
 		return visualizacoes;
 	}
@@ -188,5 +175,5 @@ public class Calculadora {
 	public void setResult(ResultadoProjecao result) {
 		this.result = result;
 	}
-	
+
 }
